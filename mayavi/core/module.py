@@ -134,6 +134,9 @@ class Module(PipelineBase):
         pipeline.
         """
         if not self.running:
+            self._teardown_event_handlers()
+            self.components = []
+            super(Module, self).stop()
             return
 
         # Teardown event handlers.
@@ -142,6 +145,7 @@ class Module(PipelineBase):
         # Stop the components.
         for component in self.components:
             component.stop()
+        self.components = []
 
         # Call parent method to set the running state.
         super(Module, self).stop()

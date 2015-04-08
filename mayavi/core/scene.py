@@ -5,7 +5,7 @@
 # License: BSD Style.
 
 # Enthought library imports.
-from traits.api import List, Str, Instance
+from traits.api import List, Str, Instance, WeakRef
 from traitsui.api import View, Group, Item
 from apptools.persistence.state_pickler import set_state
 
@@ -31,10 +31,10 @@ class Scene(Base):
     # want it recorded on all objects since the scene is shared
     # (although it isn't an error to register an object twice with the
     # recorder).
-    scene = Instance(TVTKScene, record=True)
+    scene = Instance(WeakRef(TVTKScene), record=True)
 
     # The source objects associated with this object.
-    children = List(Source, record=True)
+    children = List(WeakRef(Source), record=True)
 
     # The name of this scene.
     name = Str('TVTK Scene')

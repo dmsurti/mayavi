@@ -110,6 +110,10 @@ class Component(PipelineBase):
         # Teardown event handlers.
         self._teardown_event_handlers()
 
+        self.inputs = []
+        self.outputs = []
+        self.sources = []
+
         # Call parent method to set the state.
         super(Component, self).stop()
 

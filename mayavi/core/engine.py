@@ -63,7 +63,7 @@ class Engine(HasStrictTraits):
     __version__ = 0
 
     # The scenes associated with this project.
-    scenes = List(Scene, record=True)
+    scenes = List(WeakRef(Scene), record=True)
 
     # The list to provide to a TreeEditor.  Always add on a AdderNode.
     # TODO: It makes more sense to put the modification of the list
@@ -178,6 +178,10 @@ class Engine(HasStrictTraits):
 
     def stop(self):
         registry.unregister_engine(self)
+        for sc in self.scenes:
+            sc.stop()
+            self.remove_scene(sc)
+        self.scenes = []
         self.running = False
 
     @recordable

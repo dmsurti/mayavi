@@ -72,7 +72,7 @@ class Base(TreeNodeObject):
     # Traits
 
     # The scene (RenderWindow) associated with this component.
-    scene = Instance(TVTKScene, record=False)
+    scene = Instance(WeakRef(TVTKScene), record=False)
 
     # Is this object running as part of the mayavi pipeline.
     running = Property(Bool, record=False)

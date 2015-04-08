@@ -198,8 +198,11 @@ class ModuleManager(Base):
         # Stop all our children.
         for obj in self.children:
             obj.stop()
+        self.children = []
         for obj in (self.scalar_lut_manager, self.vector_lut_manager):
             obj.stop()
+        self.scalar_lut_manager = None
+        self.vector_lut_manager = None
 
         # Call parent method to set the running state.
         super(ModuleManager, self).stop()
